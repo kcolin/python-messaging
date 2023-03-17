@@ -142,6 +142,13 @@ class SmsDeliver(SmsBase):
         if (tz & 0x08):
             offset = offset * -1
 
+        #  fix zero month in pdu
+        if date[4] is 0:
+            date[4] = 1
+        # fix zero day in pdu
+        if date[6] is 0:
+            date[6] = 1
+
         #  02/08/26 19:37:41
         datestr = "%s%s/%s%s/%s%s %s%s:%s%s:%s%s" % tuple(date)
         outputfmt = '%y/%m/%d %H:%M:%S'
